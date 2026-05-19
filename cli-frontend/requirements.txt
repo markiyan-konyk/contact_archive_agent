@@ -1,0 +1,13 @@
+# Your Email Agent — CLI frontend dependencies.
+#
+# Install the backend's own requirements first:
+#   pip install -r ../requirements.txt
+# then this file:
+#   pip install -r requirements.txt
+#
+# (When this folder is split into its own repo, the backend will become an
+# installable package and that first step turns into a single pip install.)
+
+rich>=13.7.0              # styled panels, tables, ANSI rendering
+prompt_toolkit>=3.0.43    # full-screen TUI, key bindings, mouse support
+pyperclip>=1.8.2          # /copy puts the last draft on the system clipboard
