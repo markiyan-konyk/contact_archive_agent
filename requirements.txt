@@ -1,0 +1,23 @@
+# Email Agent — runtime dependencies.
+#   python -m venv .venv && .venv\Scripts\activate   (Windows)
+#   pip install -r requirements.txt
+# Python 3.11+ (developed on 3.13).
+
+# --- Gmail API + OAuth -------------------------------------------------------
+google-api-python-client>=2.120.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+
+# --- Agent orchestration + LLM (default: local Ollama) -----------------------
+langgraph>=0.2.0
+langchain-core>=0.3.0
+langchain-ollama>=0.2.0          # default provider; needs Ollama running locally
+
+# --- Config ------------------------------------------------------------------
+python-dotenv>=1.0.0
+
+# --- Optional cloud LLM fallbacks --------------------------------------------
+# Only install the one you set LLM_PROVIDER to (each needs its API key env var).
+# langchain-google-genai>=2.0.0   # LLM_PROVIDER=google   (GOOGLE_API_KEY)
+# langchain-anthropic>=0.3.0      # LLM_PROVIDER=anthropic (ANTHROPIC_API_KEY)
+# langchain-openai>=0.2.0         # LLM_PROVIDER=openai    (OPENAI_API_KEY)
