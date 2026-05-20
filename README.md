@@ -94,3 +94,8 @@ mail incrementally.
 - Writing-style preferences live in the database, edited through the TUI:
   `:config` for the general style, `:prompt` per contact. (Earlier versions
   used a `writer_config.json` file; that's gone.)
+
+  > This is the first version of the agent, in the future I want to expand the project
+  > by providing the option of automatizing the email sending
+  > by making it a constant program that serves as a notification centre
+  > expanding it to more professional communication services
