@@ -1,12 +1,14 @@
-# Email Agent
+# Parsley Email Agent
 
-A personal, local email-writing assistant. It reads your Gmail (read-only),
+A personal, local email-writing assistant. Originally intended as a tool for my dad
+to simplify work for free. It reads your Gmail (read-only),
 builds a SQLite store of who you talk to and what about, then uses that
 relationship context to help you draft relationship-aware emails with a local
-LLM. **Not** a generic email client — it never sends anything.
+LLM (using Ollama) or popular LLMs (OpenAI, Anthropic, Google)
+. **Not** a generic email client, it never sends anything automatically, **yet**.
 
 > Prototype. Single user, runs entirely on your machine. Your mailbox data
-> stays local and is gitignored.
+> stays local and if using local models or free gemini credits performs free
 
 ## How it works
 
@@ -18,8 +20,11 @@ Gmail ──▶ mailparse ──▶ verifier ──▶ SQLite history ──▶ 
 
 - **mailparse** — pulls INBOX + SENT (read-only), incrementally after the first backfill.
 - **verifier** — drops bulk/automated/filler mail, saves real conversations per contact.
+This is done through two steps, a simple loop to discard all ads, and then another loop using the llm for the remaining.
 - **writer** — pulls a contact's stored history into the prompt so drafts match
-  that relationship's tone, and won't fabricate replies that never happened.
+  that relationship's tone and information.
+- **configuration** — allows the llm to personalize the style through a configuration prompt,
+There are both system wide and per contact base prompts. 
 
 ## Setup
 
@@ -37,9 +42,15 @@ pip install -r requirements.txt
 
 **3. Local LLM (default).** Install [Ollama](https://ollama.com), then:
 
+Download and activate your local llm. I prefer the gemma4:e4b because of general versatilty and 
+it is surprisingly useful for its size.
+
 ```bash
-ollama pull gemma3:4b           # set OLLAMA_MODEL to match what you pulled
+ollama pull gemma4:e4b           # set OLLAMA_MODEL to match what you pulled
 ```
+
+If you have the resources, I would have the gemma4:e4b activated when turning on the program,
+because that is when the parsing occurs. And then changing to gemma4:26b for writting emails.
 
 To use a cloud model instead, set `LLM_PROVIDER` (google/anthropic/openai) plus
 its API key in `.env`, and uncomment the matching line in `requirements.txt`.
